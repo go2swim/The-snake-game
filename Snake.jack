@@ -2,10 +2,10 @@ class Snake {
   function Array init(int l) {
     var Array snake;
     var int i;
-    let snake = Array.new(l);
+    let snake = Array.new(l);   //создаём массив длиной l, который будет хранить блоки 
     let i = 0;
     while (i < l) {
-      let snake[i] = Block.new(i, 0);
+      let snake[i] = Block.new(i, 0);   //заполняем массив блоками с координатами ({0<..<len(snake)}, 0)
       do Block.drawFullBlock(snake[i], true); 
       // do Block.printBlockCoord(snake[i]);
       let i = i + 1;
@@ -13,7 +13,7 @@ class Snake {
     return snake;
   }
  
-  function Block getBlock(Array snake, int indx) {
+  function Block getBlock(Array snake, int indx) {  //возвращает один из блоков по индексу из змейки
     return snake[indx];
   }
  
@@ -21,8 +21,8 @@ class Snake {
     var int i, tmpl;
     let i = 0;
     let tmpl = l - 1;
-    do Block.drawFullBlock(snake[i], false);
-    do Block.dispose(snake[i]);
+    do Block.drawFullBlock(snake[i], false);    //отрисовываем змейку
+    do Block.dispose(snake[i]);     //удаляем змейки
     while (i < tmpl) {
       let snake[i] = snake[i + 1];
       // do Block.printBlockCoord(snake[i]);

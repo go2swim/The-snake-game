@@ -1,30 +1,54 @@
 class Block {
+  // Координаты блока
   field int xCoord, yCoord;
+  // Статики для ширины блока, отступа
   static int blockW, margin;
 
+  // Конструктор для создания нового блока с заданными координатами
   constructor Block new(int x, int y) {
     let xCoord = x;
     let yCoord = y;
     return this;
   }
 
+  // Получение координат блока. Если передано true - нужен х
+  method int getCoord(boolean x) {
+    var int retCoord;
+    if (x) {
+      let retCoord = xCoord;
+    } 
+    else {
+      let retCoord = yCoord;
+    }
+    return retCoord;
+  }
+
+  // Генерация случайного блока, который не пересекается с змейкой
   function Block newRandBlock(Snake snake, int l) {
     var int randX, randY, i, blockX, blockY;
     var Block randBlock, tmpBlock;
     var boolean matched;
+
+    // Генерация случайных координат для нового блока
     let randX = Rand.randRange(50);
     let randY = Rand.randRange(24);
     let i = 0;
     let matched = false;
+
+    // Проверка, не пересекается ли новый блок с текущим состоянием змейки.
     while (i < l) {
       let tmpBlock = snake[i];
-      let blockX = tmpBlock.getCoord(true); 
-      let blockY = tmpBlock.getCoord(false);
+      let blockX = tmpBlock.getCoord(true);    // Получение X-координаты блока змейки. (в завис. от boolean)
+      let blockY = tmpBlock.getCoord(false);    // Получение Y-координаты блока змейки. 
+
+      // Проверка совпадения координат нового блока с координатами блока змейки.
       if ((blockX = randX) & (blockY = randY)) {
         let matched = true;
       }
       let i = i + 1; 
     }
+
+    // Если новый блок совпадает с одним из блоков змейки, генерируем новые координаты.
     while (matched) {
       let matched = false;
       let randX = Rand.randRange(50);
@@ -42,20 +66,11 @@ class Block {
     }
     let randBlock = Block.new(randX, randY);
     do Block.drawRandBlock(randBlock);
-    // do Block.printBlockCoord(randBlock);
+    do Block.printBlockCoord(randBlock);
     return randBlock;
   }
 
-  method int getCoord(boolean x) {
-    var int retCoord;
-    if (x) {
-      let retCoord = xCoord;
-    } else {
-      let retCoord = yCoord;
-    }
-    return retCoord;
-  }
-
+  // Проверка совпадения блоков
   function boolean matched(Block head, Block target, int dir) {
     var int headX, headY, targetX, targetY;
     var boolean matched;
@@ -73,10 +88,11 @@ class Block {
     }
     return matched;
   } 
-
+  
+  // Перемещение головного блока
   function Block moveHeadBlock(Block headBlock, int dir) {
     var int newXCoord, newYCoord;
-    var BLock newHeadBlock;
+    var Block newHeadBlock;
     let newXCoord = headBlock.getCoord(true);
     let newYCoord = headBlock.getCoord(false);
     if (dir = 1) {let newXCoord = newXCoord + 1;}
@@ -87,7 +103,8 @@ class Block {
     do Block.drawFullBlock(newHeadBlock, true);
     return newHeadBlock;
   }
- 
+
+  // Проверка условий проигрыша
   function boolean seeIfLose(int l, Snake snake, int dir) {
     var boolean bumpWall, bumpBody, lose;
     var int headX, headY, i, newL, tmpX, tmpY;
@@ -122,17 +139,19 @@ class Block {
     return lose;
   }
  
+  // Освобождение памяти
   function void dispose(Block block) {
     do Memory.deAlloc(block);
     return;
   }
 
+  // Установка информации о блоке
   function void setBlockInfo(int bw, int m) {
     let blockW = bw;
     let margin = m;
     return;
   }
-
+  // Отрисовка полного блока
   function void drawFullBlock(Block block, boolean color) {
     var int x1, y1, x2, y2;
     var int xIndx, yIndx;
@@ -150,7 +169,8 @@ class Block {
     do Screen.drawRectangle(x1, y1, x2, y2);
     return;
   }
-  
+
+  // Отрисовка случайного блока
   function void drawRandBlock(Block randBlock) {
     var int innerX1, innerY1, innerX2, innerY2;
     var int xIndx, yIndx;
@@ -166,7 +186,7 @@ class Block {
     return;
   }
 
-  // debug
+  // Отладочный вывод координат блока
   function void printBlockCoord(Block block) {
     var String uParam, comma, lParam;
     var int xIndx, yIndx;
