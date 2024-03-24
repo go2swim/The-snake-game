@@ -1,4 +1,4 @@
-class main {
+class Main {
   function void main() {
     var View view;
     var boolean restart;
