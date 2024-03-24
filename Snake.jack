@@ -17,18 +17,18 @@ class Snake {
     return snake[indx];
   }
  
-  function void moveSnake(Array snake, int l, int dir) {
+  function void moveSnake(Array snake, int l, int dir) {  //dir == 1 вправо, dir == 2 влево, dir == 3 вниз, dir == 4 вверх
     var int i, tmpl;
     let i = 0;
     let tmpl = l - 1;
-    do Block.drawFullBlock(snake[i], false);    //отрисовываем змейку
-    do Block.dispose(snake[i]);     //удаляем змейки
+    do Block.drawFullBlock(snake[i], false);    //делаем белым первый блок змейки
+    do Block.dispose(snake[i]);     //удаляем обесцвеченый ранее блок
     while (i < tmpl) {
-      let snake[i] = snake[i + 1];
+      let snake[i] = snake[i + 1];  //переприсваиваем все средние блоки змейки не включая голову и хвост
       // do Block.printBlockCoord(snake[i]);
       let i = i + 1;
     }
-    let snake[l - 1] = Block.moveHeadBlock(snake[l - 1], dir);
+    let snake[l - 1] = Block.moveHeadBlock(snake[l - 1], dir);    //отрисовывает голову змейки в соответствии с направлением
     // do Block.printBlockCoord(snake[l - 1]);
     return;
   }
@@ -36,16 +36,16 @@ class Snake {
   function Array lengthenSnake(Array snake, int l, Block target) {
     var int newLength, i;
     var Array newSnake;
-    do Block.drawFullBlock(target, true);
+    do Block.drawFullBlock(target, true); //рисуем новый квадрат
     let newLength = l + 1;
-    let newSnake = Array.new(newLength);
+    let newSnake = Array.new(newLength);  //пересоздаём змейку с новой длиной
     let i = 0;
     while (i < l) {
-      let newSnake[i] = snake[i];
+      let newSnake[i] = snake[i];   //переприсваеваем блоки из старой змейки в новую
       // do Block.printBlockCoord(newSnake[i]);
       let i = i + 1;
     }
-    do snake.dispose();
+    do snake.dispose();   //удаляем старую змейку
     let newSnake[i] = target;
     return newSnake;
   } 
@@ -54,15 +54,15 @@ class Snake {
     var int i;
     let i = 0;
     while (i < l) {
-      do Block.dispose(Snake.getBlock(snake, i));
+      do Block.dispose(Snake.getBlock(snake, i));   //убираем все блоки в змейке
       let i = i + 1;
     }
-    do snake.dispose();
+    do snake.dispose();   //и убираем элементы массива 
     return;
   }
   
   // debug
-  function void printSnakeCoords(Array snake, int l) {
+  function void printSnakeCoords(Array snake, int l) {  //для отладки
     var int i;
     let i = 0;
     while (i < l) {
