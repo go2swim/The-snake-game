@@ -71,7 +71,7 @@ class Block {
   }
 
   // Проверка совпадения блоков
-  function boolean matched(Block head, Block target, int dir) {
+  function boolean matched(Block head, Block target, int dir) {   //получаем координаты яблока как target
     var int headX, headY, targetX, targetY;
     var boolean matched;
     let matched = false;
@@ -84,7 +84,7 @@ class Block {
     let targetX = target.getCoord(true);
     let targetY = target.getCoord(false);
     if ((headX = targetX) & (headY = targetY)) {    // Если координаты равны - совпали
-      let matched = true; 
+      let matched = true;   //т.к яблоко единственное то если координаты яблока и следующего блока не совпали то мы врезаемся в себя
     }
     return matched;
   } 
