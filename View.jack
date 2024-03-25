@@ -16,7 +16,7 @@ class View {
     let snake = Snake.init(length);
     let target = Block.newRandBlock(snake, length);
     let dir = 1;
-    let speed = 5000;
+    let speed = 100;
     let terminated = false;
     do Sys.wait(speed);
     return this;
