@@ -101,13 +101,13 @@ class View {
         do Output.printString(loseMessage1);
         do Output.println();
         do Output.println();
-        do Sys.wait(10000);
+        do Sys.wait(1000);
         do Output.printString(c3);
-        do Sys.wait(10000);
+        do Sys.wait(1000);
         do Output.printString(c2);
-        do Sys.wait(10000);
+        do Sys.wait(1000);
         do Output.printString(c1);
-        do Sys.wait(10000);
+        do Sys.wait(1000);
         do loseMessage0.dispose();
         do loseMessage1.dispose();
         do c3.dispose();
