@@ -16,7 +16,7 @@ class View {
     let snake = Snake.init(length);   //создаём змейку
     let target = Block.newRandBlock(snake, length);   //создаём яблоко
     let dir = 1;  //задаём начальное направление влево
-    let speed = 5000;   //задаём время одного тика
+    let speed = 500;   //задаём время одного тика
     let terminated = false;
     do Sys.wait(speed);
     return this;
@@ -25,7 +25,7 @@ class View {
   function int askSeed() {
     // Unable to check type due to design of Jack language
     var int userSeed;
-    var String message0, message1, message2, message3, message4;
+    var String message0, message1, message2, message3;
     var String exp0, exp1, exp2, exp3, exp4;
     var boolean matched;
     var Array tmpUsedNum;
@@ -101,13 +101,13 @@ class View {
         do Output.printString(loseMessage1);
         do Output.println();
         do Output.println();
-        do Sys.wait(10000);   //ждём и производим обратный отсчёт
+        do Sys.wait(1000);   //ждём и производим обратный отсчёт
         do Output.printString(c3);
-        do Sys.wait(10000);
+        do Sys.wait(1000);
         do Output.printString(c2);
-        do Sys.wait(10000);
+        do Sys.wait(1000);
         do Output.printString(c1);
-        do Sys.wait(10000);
+        do Sys.wait(1000);
         do loseMessage0.dispose();    //чистим память от строк
         do loseMessage1.dispose();
         do c3.dispose();
@@ -116,18 +116,17 @@ class View {
         do winMessage.dispose();
         let restart = true;   //подаём на вывод true
       } else {
-        let newL = length - 1;
-        let matched = Block.matched(snake[newL], target, dir);  //проверяет лежит ли яблоко в клетке куда игрок повернул змейку
+        let matched = Block.matched(snake[length - 1], target, dir);  //проверяет лежит ли яблоко в клетке куда игрок повернул змейку
         if (matched) {
           let snake = Snake.lengthenSnake(snake, length, target);   //если лежит то удлиняем змейку
           let length = length + 1;     
           let target = Block.newRandBlock(snake, length);   //создаём следующее яблоко
-          if (length = 10) {let speed = 4000;}  //скорость увеличивается при изменении длины
-          if (length = 20) {let speed = 3000;}
-          if (length = 25) {let speed = 2500;}
-          if (length = 30) {let speed = 2000;}
-          if (length = 40) {let speed = 1000;}
-          if (length = 50) {let speed = 500;}
+          if (length = 10) {let speed = 400;}  //скорость увеличивается при изменении длины
+          if (length = 20) {let speed = 300;}
+          if (length = 25) {let speed = 250;}
+          if (length = 30) {let speed = 200;}
+          if (length = 40) {let speed = 150;}
+          if (length = 50) {let speed = 100;}
         } else {
           do Snake.moveSnake(snake, length, dir); //если яблоко не лежит то просто двигаем змейку
         }
@@ -140,13 +139,13 @@ class View {
           do Output.printString(loseMessage1);  //запускаем таймер обратного отсчёта как при пройгрыше
           do Output.println();
           do Output.println();
-          do Sys.wait(10000);
+          do Sys.wait(1000);
           do Output.printString(c3);
-          do Sys.wait(10000);
+          do Sys.wait(1000);
           do Output.printString(c2);
-          do Sys.wait(10000);
+          do Sys.wait(1000);
           do Output.printString(c1);
-          do Sys.wait(10000);
+          do Sys.wait(1000);
           do loseMessage0.dispose();    //удаляем из памяти все сообщения
           do loseMessage1.dispose();
           do c3.dispose();

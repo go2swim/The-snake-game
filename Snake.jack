@@ -62,7 +62,7 @@ class Snake {
   }
   
   // debug
-  function void printSnakeCoords(Array snake, int l) {  //для отладки
+  function void printSnakeCoords(Array snake, int l) { 
     var int i;
     let i = 0;
     while (i < l) {
