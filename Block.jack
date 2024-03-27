@@ -23,7 +23,7 @@ class Block {
     return retCoord;
   }
 
-  // Генерация случайного блока, который не пересекается с змейкой
+  // Генерация случайного блока еды, который не пересекается с змейкой
   function Block newRandBlock(Snake snake, int l) {
     var int randX, randY, i, blockX, blockY;
     var Block randBlock, tmpBlock;
@@ -48,43 +48,43 @@ class Block {
       let i = i + 1; 
     }
 
-    // Если новый блок совпадает с одним из блоков змейки, генерируем новые координаты.
+    // Если новый блок еды совпадает с одним из блоков змейки, генерируем новые координаты.
     while (matched) {
       let matched = false;
-      let randX = Rand.randRange(50);
+      let randX = Rand.randRange(50);    // Генерируем новые координаты положения еды
       let randY = Rand.randRange(24);
       let i = 0;
       while (i < l) {
-        let tmpBlock = snake[i];
+        let tmpBlock = snake[i];    // Текущий блок
         let blockX = tmpBlock.getCoord(true); 
         let blockY = tmpBlock.getCoord(false);
-        if ((blockX = randX) & (blockY = randY)) {
+        if ((blockX = randX) & (blockY = randY)) { // Проверка на совпадение еды и змейки
           let matched = true;
         }
         let i = i + 1; 
       }
     }
     let randBlock = Block.new(randX, randY);
-    do Block.drawRandBlock(randBlock);
-    //do Block.printBlockCoord(randBlock);
+    do Block.drawRandBlock(randBlock);   // Новый блок еды
+    // do Block.printBlockCoord(randBlock);
     return randBlock;
   }
 
   // Проверка совпадения блоков
-  function boolean matched(Block head, Block target, int dir) {
+  function boolean matched(Block head, Block target, int dir) {   //получаем координаты яблока как target
     var int headX, headY, targetX, targetY;
     var boolean matched;
     let matched = false;
     let headX = head.getCoord(true);
     let headY = head.getCoord(false);
-    if (dir = 1){let headX = headX + 1;}
+    if (dir = 1){let headX = headX + 1;}    // dir == 1 вправо, dir == 2 влево, 
     if (dir = 2){let headX = headX - 1;}
-    if (dir = 3){let headY = headY - 1;}
+    if (dir = 3){let headY = headY - 1;}    // dir == 3 вниз, dir == 4 вверх
     if (dir = 4){let headY = headY + 1;}
     let targetX = target.getCoord(true);
     let targetY = target.getCoord(false);
-    if ((headX = targetX) & (headY = targetY)) {
-      let matched = true; 
+    if ((headX = targetX) & (headY = targetY)) {    // Если координаты равны - совпали
+      let matched = true;   //т.к яблоко единственное то если координаты яблока и следующего блока не совпали то мы врезаемся в себя
     }
     return matched;
   } 
@@ -95,19 +95,19 @@ class Block {
     var Block newHeadBlock;
     let newXCoord = headBlock.getCoord(true);
     let newYCoord = headBlock.getCoord(false);
-    if (dir = 1) {let newXCoord = newXCoord + 1;}
-    if (dir = 2) {let newXCoord = newXCoord - 1;}
+    if (dir = 1) {let newXCoord = newXCoord + 1;}      // В зависимости от нажатия кнопки
+    if (dir = 2) {let newXCoord = newXCoord - 1;}      // Меняем координату головы
     if (dir = 3) {let newYCoord = newYCoord - 1;}
     if (dir = 4) {let newYCoord = newYCoord + 1;}
-    let newHeadBlock = Block.new(newXCoord, newYCoord);
+    let newHeadBlock = Block.new(newXCoord, newYCoord);    // Создаем новый блок головы, рисуем
     do Block.drawFullBlock(newHeadBlock, true);
     return newHeadBlock;
   }
 
   // Проверка условий проигрыша
-  function boolean seeIfLose(int l, Snake snake, int dir) {
-    var boolean bumpWall, bumpBody, lose;
-    var int headX, headY, i, newL, tmpX, tmpY;
+  function boolean seeIfLose(int l, Snake snake, int dir) { // l - длина змейки
+    var boolean bumpWall, bumpBody, lose;       // Стукнулся в стену или в хвост
+    var int headX, headY, i, newL, tmpX, tmpY;    // newL - новая длина змейки
     var Block head, tmpBlock;
     let bumpWall = false;
     let bumpBody = false;
@@ -116,18 +116,22 @@ class Block {
     let head = snake[newL];
     let headX = head.getCoord(true);
     let headY = head.getCoord(false);
-    if (dir = 1){let headX = headX + 1;}
+    if (dir = 1){let headX = headX + 1;}     // dir == 1 вправо, dir == 2 влево, 
     if (dir = 2){let headX = headX - 1;}
-    if (dir = 3){let headY = headY - 1;}
+    if (dir = 3){let headY = headY - 1;}     // dir == 3 вниз, dir == 4 вверх
     if (dir = 4){let headY = headY + 1;}
+    // Проверка, вышла ли голова змейки за пределы игрового поля. 
+    // Если да, то bumpWall устанавливается в true.
     if ((headX < 0) | (headX > 50) | (headY > 24) | (headY < 0)) {
       let bumpWall = true; 
-    }
+    } 
     let i = 1;
     while (i < newL) {
       let tmpBlock = snake[i];
       let tmpX = tmpBlock.getCoord(true);
       let tmpY = tmpBlock.getCoord(false);
+      // Проверка, совпадает ли текущее положение головы змейки 
+      // с любым из блоков змейки. 
       if ((headX = tmpX) & (headY = tmpY)) {
         let bumpBody = true;
       }
@@ -136,7 +140,7 @@ class Block {
     if ((bumpWall) | (bumpBody)) {
       let lose = true;
     }
-    return lose;
+    return lose; // Произошло ли поражение
   }
  
   // Освобождение памяти
@@ -146,11 +150,12 @@ class Block {
   }
 
   // Установка информации о блоке
-  function void setBlockInfo(int bw, int m) {
-    let blockW = bw;
-    let margin = m;
+  function void setBlockInfo(int blockWidth, int blockMargin) {
+    let blockW = blockWidth;
+    let margin = blockMargin;
     return;
   }
+  
   // Отрисовка полного блока
   function void drawFullBlock(Block block, boolean color) {
     var int x1, y1, x2, y2;

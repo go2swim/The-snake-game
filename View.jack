@@ -11,12 +11,12 @@ class View {
     var int userSeed;
     do Screen.clearScreen();
     do Rand.setSeed(View.askSeed());
-    do Block.setBlockInfo(10, 1);
+    do Block.setBlockInfo(10, 1);   //устанавливаем ширину и окантовку для блоков (у блока эти поля статичны)
     let length = l;
-    let snake = Snake.init(length);
-    let target = Block.newRandBlock(snake, length);
-    let dir = 1;
-    let speed = 100;
+    let snake = Snake.init(length);   //создаём змейку
+    let target = Block.newRandBlock(snake, length);   //создаём яблоко
+    let dir = 1;  //задаём начальное направление влево
+    let speed = 500;   //задаём время одного тика
     let terminated = false;
     do Sys.wait(speed);
     return this;
@@ -25,11 +25,11 @@ class View {
   function int askSeed() {
     // Unable to check type due to design of Jack language
     var int userSeed;
-    var String message0, message1, message2, message3, message4;
+    var String message0, message1, message2, message3;
     var String exp0, exp1, exp2, exp3, exp4;
     var boolean matched;
     var Array tmpUsedNum;
-    let message0 = "Welcome to the SNAKE GAME!";
+    let message0 = "Welcome to the SNAKE GAME!";    //выводим начальные сообщения и выбираем seed для рандома
     let message1 = "Choose your lucky number (1~99).";
     let message2 = "Hit enter when you've done choosen: ";
     let message3 = "Invalid number. Choose again (1~99): ";
@@ -56,11 +56,11 @@ class View {
     do Output.printString(exp4); 
     do Output.println();
     do Output.println();
-    let userSeed = Keyboard.readInt(message2); 
+    let userSeed = Keyboard.readInt(message2); //ввод seed-а
     while ((userSeed > 99) | (userSeed < 0)) {
       let userSeed = Keyboard.readInt(message3);
     }
-    do Screen.clearScreen();
+    do Screen.clearScreen();    //очищаем экран и убираем из памяти все строчки
     do message0.dispose();
     do message1.dispose();
     do message2.dispose();
@@ -91,63 +91,62 @@ class View {
       if ((key = 130) & ~(dir = 1)) {let dir = 2;}
       if ((key = 131) & ~(dir = 4)) {let dir = 3;}
       if ((key = 133) & ~(dir = 3)) {let dir = 4;}
-      let lose = Block.seeIfLose(length, snake, dir);
+      let lose = Block.seeIfLose(length, snake, dir);   //возращает true если змейка ударилась
       if (lose) {
         let terminated = true;
         do Screen.clearScreen();
         do Output.moveCursor(0, 0);
-        do Output.printString(loseMessage0);
+        do Output.printString(loseMessage0);    //передвигаем курсор в левый нижний угол и выводим сообщение о проигрыше
         do Output.println();
         do Output.printString(loseMessage1);
         do Output.println();
         do Output.println();
-        do Sys.wait(1000);
+        do Sys.wait(1000);   //ждём и производим обратный отсчёт
         do Output.printString(c3);
         do Sys.wait(1000);
         do Output.printString(c2);
         do Sys.wait(1000);
         do Output.printString(c1);
         do Sys.wait(1000);
-        do loseMessage0.dispose();
+        do loseMessage0.dispose();    //чистим память от строк
         do loseMessage1.dispose();
         do c3.dispose();
         do c2.dispose();
         do c1.dispose();
         do winMessage.dispose();
-        let restart = true;
+        let restart = true;   //подаём на вывод true
       } else {
-        let newL = length - 1;
-        let matched = Block.matched(snake[newL], target, dir);
+        let matched = Block.matched(snake[length - 1], target, dir);  //проверяет лежит ли яблоко в клетке куда игрок повернул змейку
         if (matched) {
-          let snake = Snake.lengthenSnake(snake, length, target);
+          let snake = Snake.lengthenSnake(snake, length, target);   //если лежит то удлиняем змейку
           let length = length + 1;     
-          let target = Block.newRandBlock(snake, length);
-          if (length = 10) {let speed = 4000;}
-          if (length = 20) {let speed = 3000;}
-          if (length = 25) {let speed = 2500;}
-          if (length = 30) {let speed = 2000;}
-          if (length = 40) {let speed = 1000;}
-          if (length = 50) {let speed = 500;}
+          let target = Block.newRandBlock(snake, length);   //создаём следующее яблоко
+          if (length = 10) {let speed = 400;}  //скорость увеличивается при изменении длины
+          if (length = 20) {let speed = 300;}
+          if (length = 25) {let speed = 250;}
+          if (length = 30) {let speed = 200;}
+          if (length = 40) {let speed = 150;}
+          if (length = 50) {let speed = 100;}
         } else {
-          do Snake.moveSnake(snake, length, dir);
+          do Snake.moveSnake(snake, length, dir); //если яблоко не лежит то просто двигаем змейку
         }
-        do Sys.wait(speed);
-        if (length = 75) {
+        do Sys.wait(speed);   //ждём один тик
+        if (length = 75) {    //если змейка увеличилась до 75 то выводим сообщения о выйгрыше
           do Screen.clearScreen();
           do Output.moveCursor(0, 0);
           do Output.printString(winMessage);
           do Output.println();
-          do Output.printString(loseMessage1);
+          do Output.printString(loseMessage1);  //запускаем таймер обратного отсчёта как при пройгрыше
           do Output.println();
           do Output.println();
-          do Sys.wait(10000);
+          do Sys.wait(1000);
           do Output.printString(c3);
-          do Sys.wait(10000);
+          do Sys.wait(1000);
           do Output.printString(c2);
-          do Sys.wait(10000);
+          do Sys.wait(1000);
           do Output.printString(c1);
-          do Sys.wait(10000);
-          do loseMessage0.dispose();
+          do Sys.wait(1000);
+          do loseMessage0.dispose();    //удаляем из памяти все сообщения
           do loseMessage1.dispose();
           do c3.dispose();
           do c2.dispose();
@@ -162,7 +161,7 @@ class View {
     return restart;
   }
 
-  method void dispose() {
+  method void dispose() {   //удаляем яблоко, змейку и сам класс
     do Snake.dispose(snake, length);
     do Block.dispose(target);
     do Memory.deAlloc(this);
