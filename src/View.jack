@@ -131,12 +131,12 @@ class View {
           do Snake.moveSnake(snake, length, dir); //если яблоко не лежит то просто двигаем змейку
         }
         do Sys.wait(speed);   //ждём один тик
-        if (length = 75) {    //если змейка увеличилась до 75 то выводим сообщения о выйгрыше
+        if (length = 75) {    //если змейка увеличилась до 75 то выводим сообщения о выигрыше
           do Screen.clearScreen();
           do Output.moveCursor(0, 0);
           do Output.printString(winMessage);
           do Output.println();
-          do Output.printString(loseMessage1);  //запускаем таймер обратного отсчёта как при пройгрыше
+          do Output.printString(loseMessage1);  //запускаем таймер обратного отсчёта как при проигрыше
           do Output.println();
           do Output.println();
           do Sys.wait(1000);
