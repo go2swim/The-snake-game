@@ -1,14 +1,11 @@
 class main {
   function void main() {
     var View view;
-    var boolean restart;
     let view = View.init(5);    //создаём игровое поле со змейкой и яблоком
-    let restart = view.move();    // запускаем игру этим методом, возращает true если выйграли или проиграли
-    while (restart) {
-      let restart = false;
+                                // запускаем игру этим методом, возращает true если выйграли или проиграли
+    while (view.move()) {
       do view.dispose();
-      let view = View.init(5);    //хреначимся в цикле пока не надоесть играть
-      let restart = view.move();
+      let view = View.init(5);
     }
     return;
   }

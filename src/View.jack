@@ -1,5 +1,5 @@
 class View {
-  field int length;
+  field int length;  field int oldLength;
   field Snake snake;
   field Block target;
   field int dir;
@@ -13,10 +13,11 @@ class View {
     do Rand.setSeed(View.askSeed());
     do Block.setBlockInfo(10, 1);   //устанавливаем ширину и окантовку для блоков (у блока эти поля статичны)
     let length = l;
+    let oldLength = l;
     let snake = Snake.init(length);   //создаём змейку
     let target = Block.newRandBlock(snake, length);   //создаём яблоко
     let dir = 1;  //задаём начальное направление влево
-    let speed = 500;   //задаём время одного тика
+    let speed = 100;   //задаём время одного тика
     let terminated = false;
     do Sys.wait(speed);
     return this;
@@ -121,12 +122,10 @@ class View {
           let snake = Snake.lengthenSnake(snake, length, target);   //если лежит то удлиняем змейку
           let length = length + 1;     
           let target = Block.newRandBlock(snake, length);   //создаём следующее яблоко
-          if (length = 10) {let speed = 400;}  //скорость увеличивается при изменении длины
-          if (length = 20) {let speed = 300;}
-          if (length = 25) {let speed = 250;}
-          if (length = 30) {let speed = 200;}
-          if (length = 40) {let speed = 150;}
-          if (length = 50) {let speed = 100;}
+          if ((length - oldLength) = 10) {
+            let speed = speed - (speed / 4);
+            let oldLength = length;
+          }  //скорость увеличивается при изменении длины
         } else {
           do Snake.moveSnake(snake, length, dir); //если яблоко не лежит то просто двигаем змейку
         }
@@ -167,5 +166,4 @@ class View {
     do Memory.deAlloc(this);
     return;
   }
-
 }
