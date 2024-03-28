@@ -12,15 +12,11 @@ class Block {
   }
 
   method int getX() {
-    var int returnCoord;
-    let returnCoord = xCoord;
-    return returnCoord;
+    return xCoord;
   }
 
   method int getY() {
-    var int returnCoord;
-    let returnCoord = yCoord;
-    return returnCoord;
+    return yCoord;
   }
 
   // Генерация случайного блока еды, который не пересекается с змейкой
