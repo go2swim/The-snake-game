@@ -1,10 +1,11 @@
-1. Можно замедлять змейку без дублирования кода (правда, с созданием ещё одного поля):
+1. Можно замедлять змейку без дублирования кода (правда, с созданием ещё одного поля): 
 ```
 if ((length - oldLength) = 10) {
     let speed = speed - (speed / 4);
     let oldLength = length;
 }
 ```
+# (done)
 
 2. Можно просто методы x() и y(). (Block.jack)
 ```
@@ -28,6 +29,7 @@ if (color) {
       do Screen.setColor(false);
     }
 ```
+# (done)
 
 4. Во многих классах можно писать "length" вместо одной буквы "l": (Snake.jack)
 ```
@@ -41,3 +43,4 @@ while (view.move()) {
     let view = View.init(5);
 }
 ```
+# (done)

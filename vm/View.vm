@@ -24,7 +24,7 @@ call Block.newRandBlock 2
 pop this 3
 push constant 1
 pop this 4
-push constant 101
+push constant 100
 pop static 1
 push constant 0
 pop static 0

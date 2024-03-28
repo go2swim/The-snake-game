@@ -166,11 +166,7 @@ class Block {
     let y1 = yIndx * blockW + margin;
     let x2 = xIndx * blockW + blockW - margin;
     let y2 = yIndx * blockW + blockW - margin;
-    if (color) {
-      do Screen.setColor(true);
-    } else {
-      do Screen.setColor(false);
-    }
+    do Screen.setColor(color);
     do Screen.drawRectangle(x1, y1, x2, y2);
     return;
   }

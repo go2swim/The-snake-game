@@ -33,5 +33,4 @@ class Rand {
     do Rand.setSeed(Rand.rand());
     return ret;
   }
-
 }
