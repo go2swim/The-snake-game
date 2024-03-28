@@ -35,6 +35,7 @@ if (color) {
 ```
 function boolean seeIfLose(int l, Snake snake, int dir)
 ```
+# (done)
 
 5. Можно без лишней переменной restart. (main.jack)
 ```

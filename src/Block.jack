@@ -24,7 +24,7 @@ class Block {
   }
 
   // Генерация случайного блока еды, который не пересекается с змейкой
-  function Block newRandBlock(Snake snake, int l) {
+  function Block newRandBlock(Snake snake, int length) {
     var int randX, randY, i, blockX, blockY;
     var Block randBlock, tmpBlock;
     var boolean matched;
@@ -36,7 +36,7 @@ class Block {
     let matched = false;
 
     // Проверка, не пересекается ли новый блок с текущим состоянием змейки.
-    while (i < l) {
+    while (i < length) {
       let tmpBlock = snake[i];
       let blockX = tmpBlock.getCoord(true);    // Получение X-координаты блока змейки. (в завис. от boolean)
       let blockY = tmpBlock.getCoord(false);    // Получение Y-координаты блока змейки. 
@@ -54,7 +54,7 @@ class Block {
       let randX = Rand.randRange(50);    // Генерируем новые координаты положения еды
       let randY = Rand.randRange(24);
       let i = 0;
-      while (i < l) {
+      while (i < length) {
         let tmpBlock = snake[i];    // Текущий блок
         let blockX = tmpBlock.getCoord(true); 
         let blockY = tmpBlock.getCoord(false);
@@ -105,15 +105,15 @@ class Block {
   }
 
   // Проверка условий проигрыша
-  function boolean seeIfLose(int l, Snake snake, int dir) { // l - длина змейки
+  function boolean seeIfLose(int length, Snake snake, int dir) { // length - длина змейки
     var boolean bumpWall, bumpBody, lose;       // Стукнулся в стену или в хвост
-    var int headX, headY, i, newL, tmpX, tmpY;    // newL - новая длина змейки
+    var int headX, headY, i, newLength, tmpX, tmpY;    // newLength - новая длина змейки
     var Block head, tmpBlock;
     let bumpWall = false;
     let bumpBody = false;
     let lose = false;
-    let newL = l - 1;
-    let head = snake[newL];
+    let newLength = length - 1;
+    let head = snake[newLength];
     let headX = head.getCoord(true);
     let headY = head.getCoord(false);
     if (dir = 1){let headX = headX + 1;}     // dir == 1 вправо, dir == 2 влево, 
@@ -126,7 +126,7 @@ class Block {
       let bumpWall = true; 
     } 
     let i = 1;
-    while (i < newL) {
+    while (i < newLength) {
       let tmpBlock = snake[i];
       let tmpX = tmpBlock.getCoord(true);
       let tmpY = tmpBlock.getCoord(false);

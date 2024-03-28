@@ -7,13 +7,13 @@ class View {
   static boolean terminated;
   static int speed;
 
-  constructor View init(int l) {
+  constructor View init(int len) {
     var int userSeed;
     do Screen.clearScreen();
     do Rand.setSeed(View.askSeed());
     do Block.setBlockInfo(10, 1);   //устанавливаем ширину и окантовку для блоков (у блока эти поля статичны)
-    let length = l;
-    let oldLength = l;
+    let length = len;
+    let oldLength = len;
     let snake = Snake.init(length);   //создаём змейку
     let target = Block.newRandBlock(snake, length);   //создаём яблоко
     let dir = 1;  //задаём начальное направление влево
@@ -75,7 +75,7 @@ class View {
   }
  
   method boolean move() {
-    var int key, newL, hit;
+    var int key, hit;
     var boolean lose, matched, restart;
     var String loseMessage0, loseMessage1, c3, c2, c1; 
     var String winMessage;

@@ -1,10 +1,10 @@
 class Snake {
-  function Array init(int l) {
+  function Array init(int length) {
     var Array snake;
     var int i;
-    let snake = Array.new(l);   //создаём массив длиной l, который будет хранить блоки 
+    let snake = Array.new(length);   //создаём массив длиной length, который будет хранить блоки 
     let i = 0;
-    while (i < l) {
+    while (i < length) {
       let snake[i] = Block.new(i, 0);   //заполняем массив блоками с координатами ({0<..<len(snake)}, 0)
       do Block.drawFullBlock(snake[i], true); 
       // do Block.printBlockCoord(snake[i]);
@@ -17,30 +17,30 @@ class Snake {
     return snake[indx];
   }
  
-  function void moveSnake(Array snake, int l, int dir) {  //dir == 1 вправо, dir == 2 влево, dir == 3 вниз, dir == 4 вверх
-    var int i, tmpl;
+  function void moveSnake(Array snake, int length, int dir) {  //dir == 1 вправо, dir == 2 влево, dir == 3 вниз, dir == 4 вверх
+    var int i, tmplength;
     let i = 0;
-    let tmpl = l - 1;
+    let tmplength = length - 1;
     do Block.drawFullBlock(snake[i], false);    //делаем белым первый блок змейки
     do Block.dispose(snake[i]);     //удаляем обесцвеченый ранее блок
-    while (i < tmpl) {
+    while (i < tmplength) {
       let snake[i] = snake[i + 1];  //переприсваиваем все средние блоки змейки не включая голову и хвост
       // do Block.printBlockCoord(snake[i]);
       let i = i + 1;
     }
-    let snake[l - 1] = Block.moveHeadBlock(snake[l - 1], dir);    //отрисовывает голову змейки в соответствии с направлением
+    let snake[length - 1] = Block.moveHeadBlock(snake[length - 1], dir);    //отрисовывает голову змейки в соответствии с направлением
     // do Block.printBlockCoord(snake[l - 1]);
     return;
   }
 
-  function Array lengthenSnake(Array snake, int l, Block target) {
+  function Array lengthenSnake(Array snake, int length, Block target) {
     var int newLength, i;
     var Array newSnake;
     do Block.drawFullBlock(target, true); //рисуем новый квадрат
-    let newLength = l + 1;
+    let newLength = length + 1;
     let newSnake = Array.new(newLength);  //пересоздаём змейку с новой длиной
     let i = 0;
-    while (i < l) {
+    while (i < length) {
       let newSnake[i] = snake[i];   //переприсваеваем блоки из старой змейки в новую
       // do Block.printBlockCoord(newSnake[i]);
       let i = i + 1;
@@ -50,10 +50,10 @@ class Snake {
     return newSnake;
   } 
 
-  function void dispose(Array snake, int l) {
+  function void dispose(Array snake, int length) {
     var int i;
     let i = 0;
-    while (i < l) {
+    while (i < length) {
       do Block.dispose(Snake.getBlock(snake, i));   //убираем все блоки в змейке
       let i = i + 1;
     }
@@ -62,10 +62,10 @@ class Snake {
   }
   
   // debug
-  function void printSnakeCoords(Array snake, int l) { 
+  function void printSnakeCoords(Array snake, int length) { 
     var int i;
     let i = 0;
-    while (i < l) {
+    while (i < length) {
       do Block.printBlockCoord(snake[i]);
       let i = i + 1;
     }
