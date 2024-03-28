@@ -24,7 +24,6 @@ class View {
   }
 
   function int askSeed() {
-    // Unable to check type due to design of Jack language
     var int userSeed;
     var String message0, message1, message2, message3;
     var String exp0, exp1, exp2, exp3, exp4;
