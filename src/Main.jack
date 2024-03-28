@@ -1,4 +1,4 @@
-class main {
+class Main {
   function void main() {
     var View view;
     let view = View.init(5);    //создаём игровое поле со змейкой и яблоком
