@@ -8,20 +8,18 @@ push argument 1
 pop this 1
 push pointer 0
 return
-function Block.getCoord 1
+function Block.getX 1
 push argument 0
 pop pointer 0
-push argument 1
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
 push this 0
 pop local 0
-goto IF_END0
-label IF_FALSE0
+push local 0
+return
+function Block.getY 1
+push argument 0
+pop pointer 0
 push this 1
 pop local 0
-label IF_END0
 push local 0
 return
 function Block.newRandBlock 8
@@ -48,13 +46,10 @@ pop pointer 1
 push that 0
 pop local 6
 push local 6
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 3
 push local 6
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 4
 push local 3
 push local 0
@@ -103,13 +98,10 @@ pop pointer 1
 push that 0
 pop local 6
 push local 6
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 3
 push local 6
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 4
 push local 3
 push local 0
@@ -146,13 +138,10 @@ function Block.matched 5
 push constant 0
 pop local 4
 push argument 0
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 0
 push argument 0
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 1
 push argument 2
 push constant 1
@@ -199,13 +188,10 @@ add
 pop local 1
 label IF_FALSE3
 push argument 1
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 2
 push argument 1
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 3
 push local 0
 push local 2
@@ -225,13 +211,10 @@ push local 4
 return
 function Block.moveHeadBlock 3
 push argument 0
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 0
 push argument 0
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 1
 push argument 1
 push constant 1
@@ -306,13 +289,10 @@ pop pointer 1
 push that 0
 pop local 9
 push local 9
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 3
 push local 9
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 4
 push argument 2
 push constant 1
@@ -395,13 +375,10 @@ pop pointer 1
 push that 0
 pop local 10
 push local 10
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 7
 push local 10
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 8
 push local 3
 push local 7
@@ -450,13 +427,10 @@ push constant 0
 return
 function Block.drawFullBlock 6
 push argument 0
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 4
 push argument 0
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 5
 push local 4
 push static 0
@@ -504,13 +478,10 @@ not
 call Block.drawFullBlock 2
 pop temp 0
 push argument 0
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 4
 push argument 0
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 5
 push local 4
 push static 0
@@ -561,13 +532,10 @@ push constant 0
 return
 function Block.printBlockCoord 5
 push argument 0
-push constant 0
-not
-call Block.getCoord 2
+call Block.getX 1
 pop local 3
 push argument 0
-push constant 0
-call Block.getCoord 2
+call Block.getY 1
 pop local 4
 push constant 1
 call String.new 1

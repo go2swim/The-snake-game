@@ -11,16 +11,16 @@ class Block {
     return this;
   }
 
-  // Получение координат блока. Если передано true - нужен х
-  method int getCoord(boolean x) {
-    var int retCoord;
-    if (x) {
-      let retCoord = xCoord;
-    } 
-    else {
-      let retCoord = yCoord;
-    }
-    return retCoord;
+  method int getX() {
+    var int returnCoord;
+    let returnCoord = xCoord;
+    return returnCoord;
+  }
+
+  method int getY() {
+    var int returnCoord;
+    let returnCoord = yCoord;
+    return returnCoord;
   }
 
   // Генерация случайного блока еды, который не пересекается с змейкой
@@ -38,8 +38,8 @@ class Block {
     // Проверка, не пересекается ли новый блок с текущим состоянием змейки.
     while (i < length) {
       let tmpBlock = snake[i];
-      let blockX = tmpBlock.getCoord(true);    // Получение X-координаты блока змейки. (в завис. от boolean)
-      let blockY = tmpBlock.getCoord(false);    // Получение Y-координаты блока змейки. 
+      let blockX = tmpBlock.getX();    // Получение X-координаты блока змейки. (в завис. от boolean)
+      let blockY = tmpBlock.getY();    // Получение Y-координаты блока змейки. 
 
       // Проверка совпадения координат нового блока с координатами блока змейки.
       if ((blockX = randX) & (blockY = randY)) {
@@ -56,8 +56,8 @@ class Block {
       let i = 0;
       while (i < length) {
         let tmpBlock = snake[i];    // Текущий блок
-        let blockX = tmpBlock.getCoord(true); 
-        let blockY = tmpBlock.getCoord(false);
+        let blockX = tmpBlock.getX(); 
+        let blockY = tmpBlock.getY();
         if ((blockX = randX) & (blockY = randY)) { // Проверка на совпадение еды и змейки
           let matched = true;
         }
@@ -75,14 +75,14 @@ class Block {
     var int headX, headY, targetX, targetY;
     var boolean matched;
     let matched = false;
-    let headX = head.getCoord(true);
-    let headY = head.getCoord(false);
+    let headX = head.getX();
+    let headY = head.getY();
     if (dir = 1){let headX = headX + 1;}    // dir == 1 вправо, dir == 2 влево, 
     if (dir = 2){let headX = headX - 1;}
     if (dir = 3){let headY = headY - 1;}    // dir == 3 вниз, dir == 4 вверх
     if (dir = 4){let headY = headY + 1;}
-    let targetX = target.getCoord(true);
-    let targetY = target.getCoord(false);
+    let targetX = target.getX();
+    let targetY = target.getY();
     if ((headX = targetX) & (headY = targetY)) {    // Если координаты равны - совпали
       let matched = true;   //т.к яблоко единственное то если координаты яблока и следующего блока не совпали то мы врезаемся в себя
     }
@@ -93,8 +93,8 @@ class Block {
   function Block moveHeadBlock(Block headBlock, int dir) {
     var int newXCoord, newYCoord;
     var Block newHeadBlock;
-    let newXCoord = headBlock.getCoord(true);
-    let newYCoord = headBlock.getCoord(false);
+    let newXCoord = headBlock.getX();
+    let newYCoord = headBlock.getY();
     if (dir = 1) {let newXCoord = newXCoord + 1;}      // В зависимости от нажатия кнопки
     if (dir = 2) {let newXCoord = newXCoord - 1;}      // Меняем координату головы
     if (dir = 3) {let newYCoord = newYCoord - 1;}
@@ -114,8 +114,8 @@ class Block {
     let lose = false;
     let newLength = length - 1;
     let head = snake[newLength];
-    let headX = head.getCoord(true);
-    let headY = head.getCoord(false);
+    let headX = head.getX();
+    let headY = head.getY();
     if (dir = 1){let headX = headX + 1;}     // dir == 1 вправо, dir == 2 влево, 
     if (dir = 2){let headX = headX - 1;}
     if (dir = 3){let headY = headY - 1;}     // dir == 3 вниз, dir == 4 вверх
@@ -128,8 +128,8 @@ class Block {
     let i = 1;
     while (i < newLength) {
       let tmpBlock = snake[i];
-      let tmpX = tmpBlock.getCoord(true);
-      let tmpY = tmpBlock.getCoord(false);
+      let tmpX = tmpBlock.getX();
+      let tmpY = tmpBlock.getY();
       // Проверка, совпадает ли текущее положение головы змейки 
       // с любым из блоков змейки. 
       if ((headX = tmpX) & (headY = tmpY)) {
@@ -160,8 +160,8 @@ class Block {
   function void drawFullBlock(Block block, boolean color) {
     var int x1, y1, x2, y2;
     var int xIndx, yIndx;
-    let xIndx = block.getCoord(true);
-    let yIndx = block.getCoord(false);
+    let xIndx = block.getX();
+    let yIndx = block.getY();
     let x1 = xIndx * blockW + margin;
     let y1 = yIndx * blockW + margin;
     let x2 = xIndx * blockW + blockW - margin;
@@ -176,8 +176,8 @@ class Block {
     var int innerX1, innerY1, innerX2, innerY2;
     var int xIndx, yIndx;
     do Block.drawFullBlock(randBlock, true);
-    let xIndx = randBlock.getCoord(true);
-    let yIndx = randBlock.getCoord(false);
+    let xIndx = randBlock.getX();
+    let yIndx = randBlock.getY();
     let innerX1 = xIndx * blockW + margin + 1;
     let innerY1 = yIndx * blockW + margin + 1;
     let innerX2 = xIndx * blockW + blockW - margin - 1; 
@@ -191,8 +191,8 @@ class Block {
   function void printBlockCoord(Block block) {
     var String uParam, comma, lParam;
     var int xIndx, yIndx;
-    let xIndx = block.getCoord(true);
-    let yIndx = block.getCoord(false);
+    let xIndx = block.getX();
+    let yIndx = block.getY();
     let uParam = "(";
     let comma = ",";
     let lParam = ")";

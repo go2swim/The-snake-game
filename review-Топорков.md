@@ -20,6 +20,7 @@ method int getCoord(boolean x) {
     return retCoord;
   }
 ``` 
+# (done)
 
 3. Можно просто do Screen.setColor(color); (Block.jack)
 ```
